@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversión de Volumen</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2471A3;
+        }
+        header {
+            background-color: #2471A3;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+<header>
+    <h1>CalcuTodos</h1>
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="calculadorac.html">calculadora cientifica </a>
+    <a herf="calculadorapromedios.html">calculadora promedios </a>
+    <a href="calm.html"> calculadora  de unidades </a>
+</nav>
+
+
+    <div class="container">
+        <h1>Conversión de Volumen</h1>
+        <form id="conversion">
+            <label for="inputValue">Valor a convertir:</label>
+            <input type="number" id="inputValue" required>
+
+            <label for="inputUnit">Unidad de origen:</label>
+            <select id="inputUnit">
+                <option value="l">Litros</option>
+                <option value="mililitros">Mililitros</option>
+                <option value="galones">Galones</option>
+            </select>
+
+            <label for="outputUnit">Unidad de destino:</label>
+            <select id="outputUnit">
+                <option value="l">Litros</option>
+                <option value="mililitros">Mililitros</option>
+                <option value="galones">Galones</option>
+            </select>
+
+            <button type="submit">Convertir</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('conversion').addEventListener('submit', function(event) {
+            event.preventDefault();
+            convertVolume();
+        });
+
+        function convertVolume() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const inputUnit = document.getElementById('inputUnit').value;
+            const outputUnit = document.getElementById('outputUnit').value;
+
+            const conversionRates = {
+                l: {
+                    l: 1,
+                    mililitros: 1000,
+                    galones: 0.264172,
+                },
+                mililitros: {
+                    l: 0.001,
+                    mililitros: 1,
+                    galones: 0.000264172,
+                },
+                galones: {
+                    l: 3.78541,
+                    mililitros: 3785.41,
+                    galones: 1,
+                }
+            };
+
+            const convertedValue = inputValue * conversionRates[inputUnit][outputUnit];
+            document.getElementById('result').textContent = `${inputValue} ${inputUnit} son ${convertedValue.toFixed(2)} ${outputUnit}`;
+        }
+    </script>
+</body>
+</html>
